@@ -1,5 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import fs from 'fs'
+import path from 'path'
+import getConfig from 'next/config'
+const { serverRuntimeConfig } = getConfig()
 
 export default (req, res) => {
-  res.status(200).json({ name: 'John Doe' })
+  const file = fs.readFileSync(
+    path.join(serverRuntimeConfig.PROJECT_ROOT, 'included-folder', 'hello.txt'),
+    'utf-8'
+  )
+  res.send(file)
 }
